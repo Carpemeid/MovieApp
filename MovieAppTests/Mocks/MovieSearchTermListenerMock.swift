@@ -13,7 +13,9 @@ import Foundation
 final class MovieSearchTermListenerMock: MovieSearchTermListener {
   var callback: ((_ term: String, _ wasCalledAtDate: Date) -> Void)?
   
+  var shouldSearchParam: String?
   func shouldSearch(term: String) {
+    shouldSearchParam = term
     callback?(term, Date())
   }
 }

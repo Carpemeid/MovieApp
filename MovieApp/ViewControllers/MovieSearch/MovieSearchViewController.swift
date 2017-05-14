@@ -30,7 +30,7 @@ class MovieSearchViewController: UIViewController, MovieSearchTermListener {
   //MARK:- Events
   @IBAction func clearTextFieldAction(_ sender: Any) {
     searchTextField.text = nil
-    searchTermController?.didRefresh(searchTerm: nil)
+    textFieldDidChangeText(searchTextField)
   }
   
   @IBAction func textFieldDidChangeText(_ sender: UITextField) {

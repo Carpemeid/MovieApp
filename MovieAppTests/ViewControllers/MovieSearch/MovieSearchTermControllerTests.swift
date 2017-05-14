@@ -69,6 +69,18 @@ class MovieSearchTermControllerTests: QuickSpec {
           }
         }
       }
+      
+      context("when didRefresh receives nil parameter") {
+        it("should not refresh the delegate after the default time passes") {
+          waitUntil { done in
+            subject.didRefresh(searchTerm: nil)
+            Timer.scheduledTimer(withTimeInterval: defaultInterval * 1.5, repeats: false, block: { _ in
+              expect(listener.shouldSearchParam).to(beNil())
+              done()
+            })
+          }
+        }
+      }
     }
   }
 }
