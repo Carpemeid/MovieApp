@@ -9,6 +9,8 @@ target 'MovieApp' do
   target 'MovieAppTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'Quick'
+    pod 'Nimble'
   end
 
 end

@@ -43,11 +43,20 @@
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" returnKeyType="search"/>
                             <connections>
+                                <action selector="textFieldDidChangeText:" destination="BYZ-38-t0r" eventType="editingChanged" id="dup-f2-l55"/>
                                 <outlet property="delegate" destination="BYZ-38-t0r" id="o7S-Q3-jmk"/>
                             </connections>
                         </textField>
-                        <barButtonItem key="rightBarButtonItem" image="closeIcon" style="plain" id="6NZ-tF-0Lq"/>
+                        <barButtonItem key="rightBarButtonItem" image="closeIcon" id="6NZ-tF-0Lq">
+                            <connections>
+                                <action selector="clearTextFieldAction:" destination="BYZ-38-t0r" id="ndA-bJ-fVA"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchTextField" destination="skM-k1-QvA" id="Ip0-UJ-LBR"/>
+                        <outlet property="tableView" destination="yLT-2D-4ey" id="XCH-xI-gtq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -58,7 +67,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1m2-Su-LVb" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="rvP-xr-Qtv">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="rvP-xr-Qtv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

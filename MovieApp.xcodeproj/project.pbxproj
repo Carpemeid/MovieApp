@@ -11,8 +11,10 @@
 		0203D3361EC8E36E0087AC81 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0203D3341EC8E36E0087AC81 /* Main.storyboard */; };
 		0203D3381EC8E36E0087AC81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0203D3371EC8E36E0087AC81 /* Assets.xcassets */; };
 		0203D33B1EC8E36E0087AC81 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0203D3391EC8E36E0087AC81 /* LaunchScreen.storyboard */; };
-		0203D3461EC8E36E0087AC81 /* MovieAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0203D3451EC8E36E0087AC81 /* MovieAppTests.swift */; };
-		0203D3541EC8EC5C0087AC81 /* MovieSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0203D3531EC8EC5C0087AC81 /* MovieSearchViewController.swift */; };
+		0203D3581EC8F8320087AC81 /* MovieSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0203D3571EC8F8320087AC81 /* MovieSearchViewController.swift */; };
+		021AD2A21EC9025300061201 /* MovieSearchTermController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021AD2A11EC9025300061201 /* MovieSearchTermController.swift */; };
+		021AD2A71EC907DF00061201 /* MovieSearchTermControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021AD2A61EC907DF00061201 /* MovieSearchTermControllerTests.swift */; };
+		021AD2AA1EC90AA700061201 /* MovieSearchTermListenerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021AD2A91EC90AA700061201 /* MovieSearchTermListenerMock.swift */; };
 		3792B5BE0FC8509D428CED2A /* Pods_MovieApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C9A43BBF8AD7E1AEC22F7E /* Pods_MovieApp.framework */; };
 		6B38B6B36CBEB12D70389962 /* Pods_MovieAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223FF8745005D197C437DA4F /* Pods_MovieAppTests.framework */; };
 /* End PBXBuildFile section */
@@ -35,9 +37,12 @@
 		0203D33A1EC8E36E0087AC81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0203D33C1EC8E36E0087AC81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0203D3411EC8E36E0087AC81 /* MovieAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0203D3451EC8E36E0087AC81 /* MovieAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAppTests.swift; sourceTree = "<group>"; };
 		0203D3471EC8E36E0087AC81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0203D3531EC8EC5C0087AC81 /* MovieSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieSearchViewController.swift; sourceTree = "<group>"; };
+		0203D3571EC8F8320087AC81 /* MovieSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieSearchViewController.swift; sourceTree = "<group>"; };
+		021AD2A11EC9025300061201 /* MovieSearchTermController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieSearchTermController.swift; sourceTree = "<group>"; };
+		021AD2A51EC907DE00061201 /* MovieAppTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MovieAppTests-Bridging-Header.h"; path = "ViewControllers/MovieSearch/MovieAppTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		021AD2A61EC907DF00061201 /* MovieSearchTermControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieSearchTermControllerTests.swift; sourceTree = "<group>"; };
+		021AD2A91EC90AA700061201 /* MovieSearchTermListenerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieSearchTermListenerMock.swift; sourceTree = "<group>"; };
 		1C52D29F724FEE0E1144A668 /* Pods-MovieApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieApp/Pods-MovieApp.release.xcconfig"; sourceTree = "<group>"; };
 		223FF8745005D197C437DA4F /* Pods_MovieAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50D3BF47FD735EA0E84D3AA0 /* Pods-MovieAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieAppTests/Pods-MovieAppTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -102,8 +107,10 @@
 		0203D3441EC8E36E0087AC81 /* MovieAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				0203D3451EC8E36E0087AC81 /* MovieAppTests.swift */,
+				021AD2A81EC90A9700061201 /* Mocks */,
+				021AD2A31EC9078500061201 /* ViewControllers */,
 				0203D3471EC8E36E0087AC81 /* Info.plist */,
+				021AD2A51EC907DE00061201 /* MovieAppTests-Bridging-Header.h */,
 			);
 			path = MovieAppTests;
 			sourceTree = "<group>";
@@ -111,9 +118,42 @@
 		0203D3521EC8E6E70087AC81 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				0203D3531EC8EC5C0087AC81 /* MovieSearchViewController.swift */,
+				0203D3561EC8F80F0087AC81 /* MovieSearch */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		0203D3561EC8F80F0087AC81 /* MovieSearch */ = {
+			isa = PBXGroup;
+			children = (
+				0203D3571EC8F8320087AC81 /* MovieSearchViewController.swift */,
+				021AD2A11EC9025300061201 /* MovieSearchTermController.swift */,
+			);
+			path = MovieSearch;
+			sourceTree = "<group>";
+		};
+		021AD2A31EC9078500061201 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				021AD2A41EC907A400061201 /* MovieSearch */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		021AD2A41EC907A400061201 /* MovieSearch */ = {
+			isa = PBXGroup;
+			children = (
+				021AD2A61EC907DF00061201 /* MovieSearchTermControllerTests.swift */,
+			);
+			path = MovieSearch;
+			sourceTree = "<group>";
+		};
+		021AD2A81EC90A9700061201 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				021AD2A91EC90AA700061201 /* MovieSearchTermListenerMock.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		DD26398670B847983169AB5A /* Frameworks */ = {
@@ -198,6 +238,7 @@
 					0203D3401EC8E36E0087AC81 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = YXMW7C75U3;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 0203D32C1EC8E36E0087AC81;
 					};
@@ -341,7 +382,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0203D3311EC8E36E0087AC81 /* AppDelegate.swift in Sources */,
-				0203D3541EC8EC5C0087AC81 /* MovieSearchViewController.swift in Sources */,
+				0203D3581EC8F8320087AC81 /* MovieSearchViewController.swift in Sources */,
+				021AD2A21EC9025300061201 /* MovieSearchTermController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,7 +391,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0203D3461EC8E36E0087AC81 /* MovieAppTests.swift in Sources */,
+				021AD2AA1EC90AA700061201 /* MovieSearchTermListenerMock.swift in Sources */,
+				021AD2A71EC907DF00061201 /* MovieSearchTermControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,13 +553,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BE98864E218D2154CA7BD042 /* Pods-MovieAppTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = YXMW7C75U3;
 				INFOPLIST_FILE = MovieAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fawkes.MovieAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MovieAppTests/ViewControllers/MovieSearch/MovieAppTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MovieApp.app/MovieApp";
 			};
@@ -526,13 +572,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 50D3BF47FD735EA0E84D3AA0 /* Pods-MovieAppTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = YXMW7C75U3;
 				INFOPLIST_FILE = MovieAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fawkes.MovieAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MovieAppTests/ViewControllers/MovieSearch/MovieAppTests-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MovieApp.app/MovieApp";
 			};
