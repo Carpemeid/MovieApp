@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EVReflection
 
 protocol MovieSearchTermListener: class {
   func shouldSearch(term: String)
@@ -19,6 +20,7 @@ class MovieSearchViewController: UIViewController, MovieSearchTermListener {
   
   //MARK:- iVars
   var searchTermController: MovieSearchTermController?
+  var httpClient: HTTPClient?
   
   //MARK:- View life cycle methods
   override func viewDidLoad() {
@@ -45,7 +47,9 @@ class MovieSearchViewController: UIViewController, MovieSearchTermListener {
   
   //MARK:- Search term delegate methods
   func shouldSearch(term: String) {
-    
+    httpClient?.getMovieInfos(for: term, closure: { movieInfos in
+      
+    })
   }
   
   //MARK:- Helpers
@@ -53,5 +57,8 @@ class MovieSearchViewController: UIViewController, MovieSearchTermListener {
     //search term controller
     searchTermController = MovieSearchTermControllerImpl()
     searchTermController?.delegate = self
+    
+    //http client
+    httpClient = HTTPClientImpl()
   }
 }
