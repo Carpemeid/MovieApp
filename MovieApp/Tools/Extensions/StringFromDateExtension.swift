@@ -9,7 +9,7 @@
 import Foundation
 
 extension String {
-  init(date: Date, format: String) {
+  init(date: Date, format: String = DateFormatter.defaultFormat) {
     self = DateFormatter.formatter(with: format).string(from: date)
   }
 }

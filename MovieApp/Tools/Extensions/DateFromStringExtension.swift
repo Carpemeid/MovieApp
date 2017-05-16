@@ -9,7 +9,7 @@
 import Foundation
 
 extension Date {
-  init?(string: String, format: String) {
+  init?(string: String, format: String = DateFormatter.defaultFormat) {
     guard let date = DateFormatter.formatter(with: format).date(from: string) else {
       return nil
     }

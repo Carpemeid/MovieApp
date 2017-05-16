@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 protocol HTTPClient {
-  func getMovieInfos(for term: String, closure: @escaping ([MovieInfo]) -> Void)
+  func getMovieInfos(for term: String, closure: @escaping ([MovieInfo]) -> Void) -> DataRequest
 }
 
 final class HTTPClientImpl: HTTPClient {
@@ -20,8 +20,8 @@ final class HTTPClientImpl: HTTPClient {
     return HTTPClientImpl.defaultBaseURL + term
   }
   
-  func getMovieInfos(for term: String, closure: @escaping ([MovieInfo]) -> Void) {
-    request(urlForTerm(term: term)).responseObject { (response: DataResponse<MovieInfosResponse>) in
+  func getMovieInfos(for term: String, closure: @escaping ([MovieInfo]) -> Void) -> DataRequest {
+    return request(urlForTerm(term: term)).responseObject { (response: DataResponse<MovieInfosResponse>) in
       closure(response.value?.results ?? [])
     }
   }

@@ -9,6 +9,9 @@
 import Foundation
 
 extension DateFormatter {
+  static let defaultFormat = "yyyy-mm-dd"
+  static let movieInfoDisplayFormat = "dd MMM YYYY"
+  
   static func formatter(with format: String) -> DateFormatter {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = format

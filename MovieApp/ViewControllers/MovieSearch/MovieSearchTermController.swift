@@ -8,10 +8,16 @@
 
 import Foundation
 
+protocol MovieSearchTermListener: class {
+  func shouldSearch(term: String)
+}
+
 protocol MovieSearchTermController {
   var delegate: MovieSearchTermListener? { get set }
   
   func didRefresh(searchTerm: String?)
+  
+  func stopCurrentSearchTermEvaluation()
 }
 
 final class MovieSearchTermControllerImpl: MovieSearchTermController {
@@ -19,8 +25,9 @@ final class MovieSearchTermControllerImpl: MovieSearchTermController {
   
   private let defaultRefreshTime: TimeInterval
   
-  init(defaultRefreshTime: TimeInterval = 1.5) {
+  init(delegate: MovieSearchTermListener?, defaultRefreshTime: TimeInterval = 1.5) {
     self.defaultRefreshTime = defaultRefreshTime
+    self.delegate = delegate
   }
   
   private var timer: Timer?
@@ -35,5 +42,9 @@ final class MovieSearchTermControllerImpl: MovieSearchTermController {
     timer = Timer.scheduledTimer(withTimeInterval: defaultRefreshTime, repeats: false, block: { [weak self] _ in
       self?.delegate?.shouldSearch(term: searchTerm)
     })
+  }
+  
+  func stopCurrentSearchTermEvaluation() {
+    timer?.invalidate()
   }
 }

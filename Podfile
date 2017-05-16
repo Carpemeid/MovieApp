@@ -6,8 +6,8 @@ target 'MovieApp' do
 
   # Pods for MovieApp
   pod 'Alamofire'
-  pod "EVReflection/Alamofire"
-  
+  pod 'EVReflection/Alamofire'
+  pod 'SDWebImage' 
   target 'MovieAppTests' do
     inherit! :search_paths
     # Pods for testing

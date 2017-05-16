@@ -10,7 +10,6 @@ import Foundation
 import EVReflection
 
 class MovieInfo: EVNetworkingObject {
-  private static let releaseDateFormat = "yyyy-mm-dd"
   private static let defaultPosterBasePath = "http://image.tmdb.org/t/p/w92/"
   
   var posterPath: String?
@@ -34,14 +33,14 @@ class MovieInfo: EVNetworkingObject {
             return
           }
           
-          self.releaseDate = Date(string: stringValue, format: MovieInfo.releaseDateFormat)
+          self.releaseDate = Date(string: stringValue)
         },
         encodeConverter: {
           guard let releaseDate = self.releaseDate else {
             return nil
           }
           
-          return String(date: releaseDate, format: MovieInfo.releaseDateFormat)
+          return String(date: releaseDate)
         }
       )]
   }
