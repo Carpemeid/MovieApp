@@ -97,6 +97,24 @@ class MovieSearchViewController: UIViewController, MovieInfosFetcherDelegate, Sc
   }
   
   //MARK:- Helpers
+  func stopCurrentProcesses() {
+    searchTermController?.stopCurrentSearchTermEvaluation()
+    movieInfosFetcher?.cancelFetching()
+  }
+  
+  func change(tableViewControllerRepresenter: TableViewControllerRepresenter) {
+    guard currentTableViewControllerRepresenter !== tableViewControllerRepresenter else {
+      return
+    }
+    
+    defer { currentTableViewControllerRepresenter = tableViewControllerRepresenter }
+    
+    tableView.delegate = tableViewControllerRepresenter
+    tableView.dataSource = tableViewControllerRepresenter
+    
+    tableView.reloadData()
+  }
+  
   func initializeProperties() {
     movieInfosFetcher = MovieInfosFetcherImpl(httpClient: HTTPClientImpl(), delegate: self)
     
@@ -115,23 +133,5 @@ class MovieSearchViewController: UIViewController, MovieInfosFetcherDelegate, Sc
     
     //initial table view state
     change(tableViewControllerRepresenter: suggestionTermsTableViewController)
-  }
-  
-  func stopCurrentProcesses() {
-    searchTermController?.stopCurrentSearchTermEvaluation()
-    movieInfosFetcher?.cancelFetching()
-  }
-  
-  func change(tableViewControllerRepresenter: TableViewControllerRepresenter) {
-    guard currentTableViewControllerRepresenter !== tableViewControllerRepresenter else {
-      return
-    }
-    
-    defer { currentTableViewControllerRepresenter = tableViewControllerRepresenter }
-    
-    tableView.delegate = tableViewControllerRepresenter
-    tableView.dataSource = tableViewControllerRepresenter
-    
-    tableView.reloadData()
   }
 }

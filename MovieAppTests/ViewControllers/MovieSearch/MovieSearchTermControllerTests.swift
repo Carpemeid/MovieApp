@@ -25,9 +25,8 @@ class MovieSearchTermControllerTests: QuickSpec {
       var dateOfStart: Date!
       
       beforeEach {
-        subject = MovieSearchTermControllerImpl(defaultRefreshTime: defaultInterval)
         listener = MovieSearchTermListenerMock()
-        subject.delegate = listener
+        subject = MovieSearchTermControllerImpl(delegate: listener, defaultRefreshTime: defaultInterval)
       }
       
       context("when didRefresh is called once") {
@@ -65,18 +64,6 @@ class MovieSearchTermControllerTests: QuickSpec {
             subject.didRefresh(searchTerm: firstTestWord)
             Timer.scheduledTimer(withTimeInterval: breakBetweenCalls, repeats: false, block: { _ in
               subject.didRefresh(searchTerm: secondTestWord)
-            })
-          }
-        }
-      }
-      
-      context("when didRefresh receives nil parameter") {
-        it("should not refresh the delegate after the default time passes") {
-          waitUntil { done in
-            subject.didRefresh(searchTerm: nil)
-            Timer.scheduledTimer(withTimeInterval: defaultInterval * 1.5, repeats: false, block: { _ in
-              expect(listener.shouldSearchParam).to(beNil())
-              done()
             })
           }
         }

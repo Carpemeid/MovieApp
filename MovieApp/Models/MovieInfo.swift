@@ -11,6 +11,7 @@ import EVReflection
 
 class MovieInfo: EVNetworkingObject {
   private static let defaultPosterBasePath = "http://image.tmdb.org/t/p/w92/"
+  private static let propertyConverterKey = "releaseDate"
   
   var posterPath: String?
   var title: String?
@@ -25,23 +26,27 @@ class MovieInfo: EVNetworkingObject {
     return MovieInfo.defaultPosterBasePath + posterPath
   }
   
+  func decodeConverter(value: Any?) -> Void {
+    guard let stringValue = value as? String else {
+      return
+    }
+    
+    releaseDate = Date(string: stringValue)
+  }
+  
+  func encodeConverter() -> String? {
+    guard let releaseDate = self.releaseDate else {
+      return nil
+    }
+    
+    return String(date: releaseDate)
+  }
+  
   override func propertyConverters() -> [(key: String, decodeConverter: ((Any?) -> ()), encodeConverter: (() -> Any?))] {
     return [(
-        key: "releaseDate",
-        decodeConverter: { (value: Any?) -> Void in
-          guard let stringValue = value as? String else {
-            return
-          }
-          
-          self.releaseDate = Date(string: stringValue)
-        },
-        encodeConverter: {
-          guard let releaseDate = self.releaseDate else {
-            return nil
-          }
-          
-          return String(date: releaseDate)
-        }
+        key: MovieInfo.propertyConverterKey,
+        decodeConverter: decodeConverter,
+        encodeConverter: encodeConverter
       )]
   }
 }
