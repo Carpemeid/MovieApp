@@ -32,7 +32,13 @@ final class MovieInfosFetcherImpl: MovieInfosFetcher {
   
   func shouldSearch(term: String) {
     currentRequest?.cancel()
-    currentRequest = httpClient.getMovieInfos(for: term) { [weak self] movieInfos in
+    
+    guard let urlEncoded = term.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+      delegate?.didFetch(movieInfos: [], for: term)
+      return
+    }
+    
+    currentRequest = httpClient.getMovieInfos(for: urlEncoded) { [weak self] movieInfos in
       self?.delegate?.didFetch(movieInfos: movieInfos, for: term)
     }
   }

@@ -46,6 +46,7 @@ class MovieSearchViewController: UIViewController, MovieInfosFetcherDelegate, Sc
       return
     }
     
+    movieInfosTableViewController.reload(with: [])
     change(tableViewControllerRepresenter: movieInfosTableViewController)
     
     searchTermController?.didRefresh(searchTerm: searchTerm)
@@ -65,7 +66,7 @@ class MovieSearchViewController: UIViewController, MovieInfosFetcherDelegate, Sc
   
   //MARK:- TextField delegate methods
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    view.endEditing(true)
+    searchTextField.resignFirstResponder()
     return true
   }
   
@@ -76,8 +77,9 @@ class MovieSearchViewController: UIViewController, MovieInfosFetcherDelegate, Sc
     tableView.isHidden = movieInfos.isEmpty
     errorView.isHidden = !movieInfos.isEmpty
     
+    movieInfosTableViewController?.reload(with: movieInfos)
+    
     if !movieInfos.isEmpty {
-      movieInfosTableViewController?.reload(with: movieInfos)
       searchTermsPersistance.append(term: term)
     }
   }
@@ -91,7 +93,7 @@ class MovieSearchViewController: UIViewController, MovieInfosFetcherDelegate, Sc
   
   //MARK:- ScrollingListener
   func didScroll() {
-    view.endEditing(true)
+    searchTextField.resignFirstResponder()
   }
   
   //MARK:- Helpers

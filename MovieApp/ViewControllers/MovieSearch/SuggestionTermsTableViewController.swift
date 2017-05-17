@@ -15,9 +15,11 @@ protocol SuggestionTermsListener: class {
 //need to inject suggestion terms fetcher
 final class SuggestionTermsTableViewController: BaseTableViewController {
   private weak var suggestionTermsListener: SuggestionTermsListener?
+  
   private var suggestionTerms: [String] {
     return searchTermsPersistance.userSearchTerms
   }
+  
   private let searchTermsPersistance: SearchTermsPersistance
   
   init(tableView: UITableView, searchTermsPersistance: SearchTermsPersistance, scrollingListener: ScrollingListener?, suggestionTermsListener: SuggestionTermsListener? ) {

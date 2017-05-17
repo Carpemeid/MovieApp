@@ -16,6 +16,7 @@ protocol SearchTermsPersistance {
 
 final class SearchTermsPersistanceImpl: SearchTermsPersistance {
   private static let userSearchTermsKey = "userSearchTermsKey"
+  private static let countLimit = 10
   
   static let sharedInstance = SearchTermsPersistanceImpl()
   
@@ -30,6 +31,11 @@ final class SearchTermsPersistanceImpl: SearchTermsPersistance {
     }
     
     userSearchTerms.insert(term, at: 0)
+    
+    if userSearchTerms.count > SearchTermsPersistanceImpl.countLimit {
+      userSearchTerms.remove(at: SearchTermsPersistanceImpl.countLimit)
+    }
+    
     save(terms: userSearchTerms)
   }
   
