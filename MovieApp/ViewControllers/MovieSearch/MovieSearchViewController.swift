@@ -9,15 +9,20 @@
 import UIKit
 import Alamofire
 
-class MovieSearchViewController: UIViewController, MovieInfosFetcherDelegate, ScrollingListener {
+class MovieSearchViewController: UIViewController, MovieInfosFetcherDelegate, ScrollingListener, SuggestionTermsListener {
   //MARK:- Outlets
   @IBOutlet weak var searchTextField: UITextField!
   @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var errorView: UIView!
   
   //MARK:- iVars
-  var searchTermController: MovieSearchTermController?
-  var movieInfosFetcher: MovieInfosFetcher?
-  var tableViewController: MovieInfosTableViewController?
+  var searchTermController: MovieSearchTermController!
+  var movieInfosFetcher: MovieInfosFetcher!
+  var movieInfosTableViewController: MovieInfosTableViewController!
+  var suggestionTermsTableViewController: SuggestionTermsTableViewController!
+  var currentTableViewControllerRepresenter: TableViewControllerRepresenter!
+  let searchTermsPersistance: SearchTermsPersistance = SearchTermsPersistanceImpl.sharedInstance
+  
   let refreshControl: UIRefreshControl = UIRefreshControl()
   
   //MARK:- View life cycle methods
@@ -32,17 +37,26 @@ class MovieSearchViewController: UIViewController, MovieInfosFetcherDelegate, Sc
   @IBAction func clearTextFieldAction(_ sender: Any) {
     searchTextField.text = nil
     textFieldDidChangeText(searchTextField)
-    movieInfosFetcher?.cancelFetching()
   }
   
   @IBAction func textFieldDidChangeText(_ sender: UITextField) {
-    searchTermController?.didRefresh(searchTerm: sender.text)
+    guard let searchTerm = sender.text, !searchTerm.isEmpty else {
+      stopCurrentProcesses()
+      change(tableViewControllerRepresenter: suggestionTermsTableViewController)
+      return
+    }
+    
+    change(tableViewControllerRepresenter: movieInfosTableViewController)
+    
+    searchTermController?.didRefresh(searchTerm: searchTerm)
   }
   
   func didPullToRefresh() {
-    searchTermController?.stopCurrentSearchTermEvaluation()
+    stopCurrentProcesses()
     
-    guard let searchTerm = searchTextField.text else {
+    guard let searchTerm = searchTextField.text, !searchTerm.isEmpty else {
+      refreshControl.endRefreshing()
+      change(tableViewControllerRepresenter: suggestionTermsTableViewController)
       return
     }
     
@@ -56,12 +70,26 @@ class MovieSearchViewController: UIViewController, MovieInfosFetcherDelegate, Sc
   }
   
   //MARK:- Movie infos fetcher delegate
-  func didFetch(movieInfos: [MovieInfo]) {
+  func didFetch(movieInfos: [MovieInfo], for term: String) {
     refreshControl.endRefreshing()
-    tableViewController?.reload(with: movieInfos)
+    
+    tableView.isHidden = movieInfos.isEmpty
+    errorView.isHidden = !movieInfos.isEmpty
+    
+    if !movieInfos.isEmpty {
+      movieInfosTableViewController?.reload(with: movieInfos)
+      searchTermsPersistance.append(term: term)
+    }
   }
   
-  //MARK:- ScrollingListener delegate
+  //MARK:- SuggestionTermsListener
+  func didSelect(term: String) {
+    searchTextField.text = term
+    
+    textFieldDidChangeText(searchTextField)
+  }
+  
+  //MARK:- ScrollingListener
   func didScroll() {
     view.endEditing(true)
   }
@@ -72,12 +100,36 @@ class MovieSearchViewController: UIViewController, MovieInfosFetcherDelegate, Sc
     
     searchTermController = MovieSearchTermControllerImpl(delegate: movieInfosFetcher)
     
-    tableViewController = MovieInfosTableViewControllerImpl(tableView: tableView, delegate: self)
+    movieInfosTableViewController = MovieInfosTableViewControllerImpl(tableView: tableView, scrollingListener: self)
+    
+    suggestionTermsTableViewController = SuggestionTermsTableViewController(tableView: tableView, searchTermsPersistance: searchTermsPersistance, scrollingListener: self, suggestionTermsListener: self)
   }
   
   func configureView() {
+    //refresh control
     refreshControl.tintColor = .darkGray
     refreshControl.addTarget(self, action: #selector(MovieSearchViewController.didPullToRefresh), for: .valueChanged)
     tableView.refreshControl = refreshControl
+    
+    //initial table view state
+    change(tableViewControllerRepresenter: suggestionTermsTableViewController)
+  }
+  
+  func stopCurrentProcesses() {
+    searchTermController?.stopCurrentSearchTermEvaluation()
+    movieInfosFetcher?.cancelFetching()
+  }
+  
+  func change(tableViewControllerRepresenter: TableViewControllerRepresenter) {
+    guard currentTableViewControllerRepresenter !== tableViewControllerRepresenter else {
+      return
+    }
+    
+    defer { currentTableViewControllerRepresenter = tableViewControllerRepresenter }
+    
+    tableView.delegate = tableViewControllerRepresenter
+    tableView.dataSource = tableViewControllerRepresenter
+    
+    tableView.reloadData()
   }
 }

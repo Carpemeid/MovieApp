@@ -22,6 +22,34 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vZm-Ta-G1c">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="errorIcon" translatesAutoresizingMaskIntoConstraints="NO" id="vSj-V1-W6Z">
+                                        <rect key="frame" x="163" y="245.5" width="48" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="vSj-V1-W6Z" secondAttribute="height" multiplier="1:1" id="i2x-Mt-I9b"/>
+                                            <constraint firstAttribute="width" constant="48" id="zI4-MH-tvC"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unfortunately there are no results for your search term" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HQt-ol-KKo">
+                                        <rect key="frame" x="97" y="310" width="180" height="61"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="180" id="9dS-vp-Wvb"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="HQt-ol-KKo" firstAttribute="top" secondItem="vSj-V1-W6Z" secondAttribute="bottom" constant="16" id="OuN-rr-Egd"/>
+                                    <constraint firstItem="vSj-V1-W6Z" firstAttribute="centerX" secondItem="vZm-Ta-G1c" secondAttribute="centerX" id="T3T-LQ-U0p"/>
+                                    <constraint firstItem="vSj-V1-W6Z" firstAttribute="centerY" secondItem="vZm-Ta-G1c" secondAttribute="centerY" constant="-32" id="XH1-AH-zeF"/>
+                                    <constraint firstItem="HQt-ol-KKo" firstAttribute="centerX" secondItem="vZm-Ta-G1c" secondAttribute="centerX" id="gTa-IU-O3M"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="85" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yLT-2D-4ey">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -92,14 +120,26 @@
                                             <outlet property="posterImageView" destination="GgA-VN-H4E" id="WgH-Zw-54F"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="5Ej-d1-QsH">
+                                        <rect key="frame" x="0.0" y="113" width="375" height="85"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5Ej-d1-QsH" id="dkA-dy-nR4">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="84.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="vZm-Ta-G1c" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="7ff-SZ-8su"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="vZm-Ta-G1c" secondAttribute="bottom" id="EHk-ac-fxz"/>
                             <constraint firstItem="yLT-2D-4ey" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="YLT-Aw-wRj"/>
                             <constraint firstAttribute="trailing" secondItem="yLT-2D-4ey" secondAttribute="trailing" id="df0-pB-B5f"/>
+                            <constraint firstItem="vZm-Ta-G1c" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="fKf-dl-77H"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="yLT-2D-4ey" secondAttribute="bottom" id="imo-th-dxu"/>
+                            <constraint firstAttribute="trailing" secondItem="vZm-Ta-G1c" secondAttribute="trailing" id="s7y-J8-LlA"/>
                             <constraint firstItem="yLT-2D-4ey" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="xty-bi-Oys"/>
                         </constraints>
                     </view>
@@ -123,6 +163,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="errorView" destination="vZm-Ta-G1c" id="twh-qf-u7n"/>
                         <outlet property="searchTextField" destination="skM-k1-QvA" id="Ip0-UJ-LBR"/>
                         <outlet property="tableView" destination="yLT-2D-4ey" id="XCH-xI-gtq"/>
                     </connections>
@@ -153,6 +194,7 @@
     </scenes>
     <resources>
         <image name="closeIcon" width="24" height="24"/>
+        <image name="errorIcon" width="48" height="48"/>
     </resources>
     <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
 </document>

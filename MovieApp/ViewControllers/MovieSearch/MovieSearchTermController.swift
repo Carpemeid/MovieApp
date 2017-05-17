@@ -13,15 +13,13 @@ protocol MovieSearchTermListener: class {
 }
 
 protocol MovieSearchTermController {
-  var delegate: MovieSearchTermListener? { get set }
-  
-  func didRefresh(searchTerm: String?)
+  func didRefresh(searchTerm: String)
   
   func stopCurrentSearchTermEvaluation()
 }
 
 final class MovieSearchTermControllerImpl: MovieSearchTermController {
-  weak var delegate: MovieSearchTermListener?
+  private weak var delegate: MovieSearchTermListener?
   
   private let defaultRefreshTime: TimeInterval
   
@@ -32,12 +30,8 @@ final class MovieSearchTermControllerImpl: MovieSearchTermController {
   
   private var timer: Timer?
   
-  func didRefresh(searchTerm: String?) {
+  func didRefresh(searchTerm: String) {
     timer?.invalidate()
-    
-    guard let searchTerm = searchTerm else {
-      return
-    }
     
     timer = Timer.scheduledTimer(withTimeInterval: defaultRefreshTime, repeats: false, block: { [weak self] _ in
       self?.delegate?.shouldSearch(term: searchTerm)

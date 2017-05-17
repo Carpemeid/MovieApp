@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 protocol MovieInfosFetcherDelegate {
-  func didFetch(movieInfos: [MovieInfo])
+  func didFetch(movieInfos: [MovieInfo], for term: String)
 }
 
 protocol MovieInfosFetcher: MovieSearchTermListener {
@@ -33,7 +33,7 @@ final class MovieInfosFetcherImpl: MovieInfosFetcher {
   func shouldSearch(term: String) {
     currentRequest?.cancel()
     currentRequest = httpClient.getMovieInfos(for: term) { [weak self] movieInfos in
-      self?.delegate?.didFetch(movieInfos: movieInfos)
+      self?.delegate?.didFetch(movieInfos: movieInfos, for: term)
     }
   }
   
