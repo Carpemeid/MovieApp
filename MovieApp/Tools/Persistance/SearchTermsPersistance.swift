@@ -8,10 +8,11 @@
 
 import Foundation
 
+/// Entity used for storing successful search terms
 protocol SearchTermsPersistance {
   var userSearchTerms: [String] { get }
   
-  func append(term: String)
+  func add(term: String)
 }
 
 final class SearchTermsPersistanceImpl: SearchTermsPersistance {
@@ -24,7 +25,7 @@ final class SearchTermsPersistanceImpl: SearchTermsPersistance {
     return UserDefaults.standard.stringArray(forKey: SearchTermsPersistanceImpl.userSearchTermsKey) ?? []
   }()
   
-  func append(term: String) {
+  func add(term: String) {
     //this allows to refresh the position of the searched terms in case the user searches for it again in the same time avoinding duplicates 
     if let index = userSearchTerms.index(of: term) {
       userSearchTerms.remove(at: index)

@@ -88,7 +88,7 @@ class MovieInfoTests: QuickSpec {
           }
           
           it("should return a valid string") {
-            expect(encodeConverter?() as String?).to(equal(stringDate))
+            expect(encodeConverter?() as? String).to(equal(stringDate))
           }
         }
       }

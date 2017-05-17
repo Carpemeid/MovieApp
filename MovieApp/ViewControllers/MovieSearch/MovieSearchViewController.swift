@@ -80,7 +80,7 @@ class MovieSearchViewController: UIViewController, MovieInfosFetcherDelegate, Sc
     movieInfosTableViewController?.reload(with: movieInfos)
     
     if !movieInfos.isEmpty {
-      searchTermsPersistance.append(term: term)
+      searchTermsPersistance.add(term: term)
     }
   }
   
