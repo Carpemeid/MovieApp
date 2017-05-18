@@ -14,7 +14,7 @@ import Nimble
 
 class SearchTermsPersistanceTests: QuickSpec {
   override func spec() {
-    fdescribe("SearchTermsPersistance") {
+    describe("SearchTermsPersistance") {
       let persistanceArrayKey = "userSearchTermsKey"
       let term = "movie"
       

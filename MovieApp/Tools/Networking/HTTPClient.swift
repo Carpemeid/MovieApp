@@ -16,12 +16,18 @@ protocol HTTPClient {
 final class HTTPClientImpl: HTTPClient {
   private static let defaultBaseURL = "http://api.themoviedb.org/3/search/movie?api_key=2696829a81b1b5827d515ff121700838&query="
   
+  private let sessionManager: SessionManager
+  
+  init(sessionManager: SessionManager = SessionManager.default) {
+    self.sessionManager = sessionManager
+  }
+  
   private func urlForTerm(term: String) -> String {
     return HTTPClientImpl.defaultBaseURL + term
   }
   
   func getMovieInfos(for term: String, closure: @escaping ([MovieInfo]) -> Void) -> DataRequest {
-    return request(urlForTerm(term: term)).responseObject { (response: DataResponse<MovieInfosResponse>) in
+    return sessionManager.request(urlForTerm(term: term)).responseObject { (response: DataResponse<MovieInfosResponse>) in
       closure(response.value?.results ?? [])
     }
   }
