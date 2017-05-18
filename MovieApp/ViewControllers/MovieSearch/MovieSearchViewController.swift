@@ -21,7 +21,7 @@ class MovieSearchViewController: UIViewController, MovieInfosFetcherDelegate, Sc
   var movieInfosTableViewController: MovieInfosTableViewController!
   var suggestionTermsTableViewController: SuggestionTermsTableViewController!
   var currentTableViewControllerRepresenter: TableViewControllerRepresenter!
-  let searchTermsPersistance: SearchTermsPersistance = SearchTermsPersistanceImpl.sharedInstance
+  var searchTermsPersistance: SearchTermsPersistance!
   
   let refreshControl: UIRefreshControl = UIRefreshControl()
   
@@ -121,6 +121,8 @@ class MovieSearchViewController: UIViewController, MovieInfosFetcherDelegate, Sc
     searchTermController = MovieSearchTermControllerImpl(delegate: movieInfosFetcher)
     
     movieInfosTableViewController = MovieInfosTableViewControllerImpl(tableView: tableView, scrollingListener: self)
+    
+    searchTermsPersistance = SearchTermsPersistanceImpl.sharedInstance
     
     suggestionTermsTableViewController = SuggestionTermsTableViewController(tableView: tableView, searchTermsPersistance: searchTermsPersistance, scrollingListener: self, suggestionTermsListener: self)
   }
